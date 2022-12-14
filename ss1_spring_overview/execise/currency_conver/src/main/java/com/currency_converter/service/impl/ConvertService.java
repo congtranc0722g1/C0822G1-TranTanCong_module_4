@@ -1,6 +1,5 @@
 package com.currency_converter.service.impl;
 
-import com.currency_converter.repository.IConvertRepository;
 import com.currency_converter.service.IConvertService;
 
 public class ConvertService implements IConvertService {
