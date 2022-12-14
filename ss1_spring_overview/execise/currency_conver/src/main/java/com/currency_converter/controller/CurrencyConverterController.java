@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("")
 public class CurrencyConverterController {
-    private IConvertService convertService = new ConvertService();
+    @Autowired
+    private IConvertService convertService;
 
     @RequestMapping("")
     public String convert() {

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("")
 public class DictionaryController {
-    private IDictionaryService dictionaryService = new DictionaryService();
+     @Autowired
+     private IDictionaryService dictionaryService;
 
     @RequestMapping("")
     public String translate() {

@@ -1,7 +1,9 @@
 package com.dictionary.service.impl;
 
 import com.dictionary.service.IDictionaryService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DictionaryService implements IDictionaryService {
     @Override
     public String dictionary(String keyWord) {
