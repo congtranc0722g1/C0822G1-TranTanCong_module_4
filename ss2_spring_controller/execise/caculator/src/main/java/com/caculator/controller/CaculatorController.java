@@ -16,15 +16,20 @@ public class CaculatorController {
     private ICaculatorService caculatorService;
 
     @GetMapping("")
-    private String calculate(){
+    private String calculate() {
         return "/caculator/calculate";
     }
 
-@GetMapping("/calculate")
-    private String calculate(@RequestParam(value = "first-number") Double firstNumber, char calculations, @RequestParam (value = "second-number") Double secondNumber, Model model){
+    @GetMapping("/calculate")
+    private String calculate(@RequestParam(value = "first-number") Double firstNumber, char calculations, @RequestParam(value = "second-number") Double secondNumber, Model model) {
 
-        double result = caculatorService.calculate(firstNumber, calculations, secondNumber);
+        double result = 0;
+        try {
+            result = caculatorService.calculate(firstNumber, calculations, secondNumber);
+        } catch (RuntimeException e) {
+            model.addAttribute("exception", e.getMessage());
+        }
         model.addAttribute("result", result);
-    return "/caculator/calculate";
+        return "/caculator/calculate";
     }
 }

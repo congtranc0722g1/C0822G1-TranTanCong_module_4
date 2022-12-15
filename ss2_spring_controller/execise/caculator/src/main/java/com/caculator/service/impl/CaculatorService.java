@@ -9,7 +9,7 @@ public class CaculatorService implements ICaculatorService {
     @Override
     public double calculate(Double firstNumber, char calculations, Double secondNumber) {
         double result = 0;
-        switch (calculations){
+        switch (calculations) {
             case '+':
                 result = firstNumber + secondNumber;
                 break;
@@ -17,12 +17,12 @@ public class CaculatorService implements ICaculatorService {
                 result = firstNumber - secondNumber;
                 break;
             case '*':
-                result = firstNumber + secondNumber;
+                result = firstNumber * secondNumber;
                 break;
             case '/':
-                if (secondNumber == 0){
+                if (secondNumber == 0) {
                     throw new RuntimeException("Not divided by zero");
-                }else {
+                } else {
                     result = firstNumber / secondNumber;
                 }
                 break;
