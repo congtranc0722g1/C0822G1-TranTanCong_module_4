@@ -21,15 +21,14 @@ public class CaculatorController {
     }
 
     @GetMapping("/calculate")
-    private String calculate(@RequestParam(value = "first-number") Double firstNumber, char calculations, @RequestParam(value = "second-number") Double secondNumber, Model model) {
-
-        double result = 0;
+    private String calculate(@RequestParam("first-number") Double firstNumber, char calculations, @RequestParam("second-number") Double secondNumber, Model model) {
+        Double result = 0.0;
         try {
             result = caculatorService.calculate(firstNumber, calculations, secondNumber);
         } catch (RuntimeException e) {
-            model.addAttribute("exception", e.getMessage());
+            model.addAttribute("exception", "Error: " + e.getMessage());
         }
-        model.addAttribute("result", result);
+        model.addAttribute("result", "Result: " + result);
         return "/caculator/calculate";
     }
 }

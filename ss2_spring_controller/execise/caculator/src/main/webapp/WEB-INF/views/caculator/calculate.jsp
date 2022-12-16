@@ -11,8 +11,8 @@
     <div class="col-lg-4"></div>
     <div class="col-lg-6">
         <form action="/calculate">
-            <input type="text" name="first-number" placeholder="First Number">
-            <input type="text" name="second-number" placeholder="Second Number">
+            <input type="text" name="first-number" placeholder="First Number" required>
+            <input type="text" name="second-number" placeholder="Second Number" required>
             <br>
             <button type="submit" name="calculations" value="+">Addition[+]</button>
             <button type="submit" name="calculations" value="-">Subtraction[-]</button>
@@ -21,10 +21,10 @@
 
         </form>
         <c:if test="${exception != null}">
-            <p>Error: ${exception}</p>
+            <p>${exception}</p>
         </c:if>
         <c:if test="${exception == null}">
-            <p>Result: ${result}</p>
+            <p>${result}</p>
         </c:if>
     </div>
     <div class="col-lg-2"></div>

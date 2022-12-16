@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>List</title>
 </head>
 <body>
 <h1>The condiments that go with the sandwich</h1>
