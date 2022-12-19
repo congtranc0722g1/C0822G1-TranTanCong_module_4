@@ -62,10 +62,11 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @GetMapping("/search/{search}")
+    @GetMapping("/search")
     private String search(@RequestParam("search") String name_search, Model model) {
         List<Product> productList = productService.search(name_search);
         model.addAttribute("productList", productList);
+        model.addAttribute("search", name_search);
         return "/product/list";
     }
 

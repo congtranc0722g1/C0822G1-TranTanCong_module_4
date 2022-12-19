@@ -53,13 +53,13 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public List<Product> search(String name_search) {
-        List<Product> productList = new ArrayList<>();
+        List<Product> productList1 = new ArrayList<>();
         for (int i = 0; i < productList.size(); i++) {
             if (name_search.equals(productList.get(i).getName())) {
-                productList.add(productList.get(i));
+                productList1.add(productList.get(i));
             }
         }
-        return productList;
+        return productList1;
     }
 
     @Override
