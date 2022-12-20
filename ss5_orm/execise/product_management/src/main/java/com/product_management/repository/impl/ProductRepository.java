@@ -126,7 +126,25 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Product detail(int id) {
-        return null;
+    public void removeModal(int id) {
+        Session session = null;
+        Transaction transaction = null;
+        Product product = null;
+        try {
+            session = ConnectionUtil.sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            product = searchById(id);
+            session.remove(product);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 }

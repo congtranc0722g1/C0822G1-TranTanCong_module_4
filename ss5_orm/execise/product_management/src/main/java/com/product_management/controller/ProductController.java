@@ -75,4 +75,10 @@ public class ProductController {
         model.addAttribute("productList", productList);
         return "/product/list";
     }
+
+    @PostMapping("/remove")
+    private String remove(@RequestParam("id") int id){
+        productService.removeModal(id);
+        return "redirect:/";
+    }
 }

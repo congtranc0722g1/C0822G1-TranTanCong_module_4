@@ -17,5 +17,5 @@ public interface IProductRepository {
 
     List<Product> search(String nameSearch);
 
-    Product detail(int id);
+    void removeModal(int id);
 }

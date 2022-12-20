@@ -45,7 +45,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product detail(int id) {
-        return null;
+    public void removeModal(int id) {
+        productRepository.removeModal(id);
     }
 }

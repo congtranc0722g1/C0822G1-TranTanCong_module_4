@@ -27,6 +27,7 @@
         <th>Giá</th>
         <th>Chỉnh sửa</th>
         <th>Xóa</th>
+        <th>Xóa Modal</th>
         <th>Chi tiết</th>
     </tr>
     <tr th:each="product, status : ${productList}">
@@ -41,11 +42,45 @@
         <td><a th:href="@{/delete/__${product.id}__}">
             <button class="btn btn-warning">Xóa</button>
         </a></td>
+        <td><a>
+            <button th:onclick="|infoDelete('${product.id}', '${product.name}')|" type="button"
+                    class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Xóa Modal
+            </button>
+        </a></td>
         <td><a th:href="@{/detail/__${product.id}__}">
             <button class="btn btn-secondary">Chi tiết</button>
         </a></td>
     </tr>
 </table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa Sản Phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/remove" method="post">
+                <div class="modal-body">
+                    <input type="text" hidden id="deleteId" name="id">
+                    <span>Bạn có muốn xóa sản phẩm</span> <span style="color: red" id="deleteName"></span> <span>không ?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function infoDelete(id, name) {
+        document.getElementById("deleteId").value = id;
+        document.getElementById("deleteName").innerText = name;
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
