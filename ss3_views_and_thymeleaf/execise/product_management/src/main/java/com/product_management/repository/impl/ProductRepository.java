@@ -55,7 +55,7 @@ public class ProductRepository implements IProductRepository {
     public List<Product> search(String name_search) {
         List<Product> productList1 = new ArrayList<>();
         for (int i = 0; i < productList.size(); i++) {
-            if (name_search.equals(productList.get(i).getName())) {
+            if (productList.get(i).getName().contains(name_search)) {
                 productList1.add(productList.get(i));
             }
         }
