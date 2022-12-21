@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<h1> THÊM MỚI BLOG</h1>
+<form action="/add" method="post" th:object="${blog}">
+    <label th:for="title">Nhập tiêu đề</label>
+    <input type="text" th:field="*{title}">
+    <label th:for="content">Nhập nội dung</label>
+    <input type="text" th:field="*{content}">
+    <label th:for="dateOfWriting">Nhập ngày viết</label>
+    <input type="text" th:field="*{dateOfWriting}">
+    <label th:for="cateGory">Nhập thể loại</label>
+    <input type="text" th:field="*{cateGory}">
+    <button type="submit">Lưu</button>
+</form>
+</body>
+</html>

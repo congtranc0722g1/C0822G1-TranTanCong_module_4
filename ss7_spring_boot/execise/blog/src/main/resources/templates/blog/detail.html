@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+<h1>CHI TIẾT BLOG</h1>
+<label th:text="'Tiêu đề: '"></label>
+<label th:text="${blog.title}"></label>
+<br>
+<label th:text="'Nội dung: '"></label>
+<label th:text="${blog.content}"></label>
+<br>
+<label th:text="'Ngày viết: '"></label>
+<label th:text="${blog.dateOfWriting}"></label>
+<br>
+<label th:text="'Thể loại: '"></label>
+<label th:text="${blog.cateGory}"></label>
+</body>
+</html>

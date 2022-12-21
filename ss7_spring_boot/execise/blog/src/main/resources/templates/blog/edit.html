@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<h1>CHỈNH SỬA BLOG</h1>
+<form action="/edit" th:method="post" th:object="${blog}">
+    <input type="hidden" th:field="*{id}">
+    <label th:for="title">Nhập tiêu đề</label>
+    <input type="text" th:field="*{title}">
+    <label th:for="content">Nhập nội dung</label>
+    <input type="text" th:field="*{content}">
+    <label th:for="dateOfWriting">Nhập ngày viết</label>
+    <input type="text" th:field="*{dateOfWriting}">
+    <label th:for="cateGory">Nhập thể loại</label>
+    <input type="text" th:field="*{cateGory}">
+    <button type="submit">Cập Nhật</button>
+</form>
+</body>
+</html>
