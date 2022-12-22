@@ -1,19 +1,18 @@
 package com.codegym.blog.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Blog {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String title;
     private String content;
     private String dateOfWriting;
-    private String cateGory;
+
+    @ManyToOne
+    private Category category;
 
     public Blog() {
 
@@ -51,11 +50,11 @@ public class Blog {
         this.dateOfWriting = dateOfWriting;
     }
 
-    public String getCateGory() {
-        return cateGory;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCateGory(String cateGory) {
-        this.cateGory = cateGory;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

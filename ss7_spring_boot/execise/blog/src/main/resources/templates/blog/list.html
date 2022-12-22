@@ -11,10 +11,16 @@
     <button class="btn btn-primary">Thêm Mới</button>
 </a>
 
-<form class="d-flex" action="/search" method="get">
+<form class="d-flex" method="get">
     <input class="form-control me-2" type="search" name="search" th:value="${search}" placeholder="Product Name"
            aria-label="Search">
     <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+<form action="/category" method="get">
+    <select name="category" id="category" onchange="this.form.submit()">
+        <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
 </form>
 
 <table class="table table-danger">
@@ -25,15 +31,16 @@
         <th>Ngày viết</th>
         <th>Chủ đề</th>
         <th>Chỉnh sửa</th>
-        <th>Xem chi tiết</th>
         <th>Xóa</th>
+        <th>Xem chi tiết</th>
+
     </tr>
-    <tr th:each="blog, status : ${blogList}">
+    <tr th:each="blog, status : ${blogList.content}">
         <td th:text="${status.count}"></td>
         <td th:text="${blog.title}"></td>
         <td th:text="${blog.content}"></td>
         <td th:text="${blog.dateOfWriting}"></td>
-        <td th:text="${blog.cateGory}"></td>
+        <td th:text="${blog.category.name}"></td>
         <td><a th:href="@{/edit/__${blog.id}__}">
             <button class="btn btn-primary">Chỉnh sửa</button>
         </a></td>
@@ -49,6 +56,17 @@
     </tr>
 </table>
 
+<div class="text-center">
+    <a class="btn btn-secondary" th:href="@{/(page=${blogList.number - 1})}" th:if="${blogList.hasPrevious()}">
+        Trang trước
+    </a>
+    <span th:text="${blogList.number + 1 + '/' + blogList.totalPages}"></span>
+    <a class="btn btn-primary" th:href="@{/(page=${blogList.number + 1})}" th:if="${blogList.hasNext()}">
+        Trang tiếp theo
+    </a>
+</div>
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -59,7 +77,8 @@
             <form action="/delete" method="post">
                 <div class="modal-body">
                     <input type="text" hidden id="deleteId" name="id">
-                    <span>Bạn có muốn xóa blog</span> <span style="color: red" id="deleteName"></span> <span>không ?</span>
+                    <span>Bạn có muốn xóa blog</span> <span style="color: red" id="deleteName"></span>
+                    <span>không ?</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>

@@ -13,8 +13,10 @@
     <input type="text" th:field="*{content}">
     <label th:for="dateOfWriting">Nhập ngày viết</label>
     <input type="text" th:field="*{dateOfWriting}">
-    <label th:for="cateGory">Nhập thể loại</label>
-    <input type="text" th:field="*{cateGory}">
+    <label th:for="category">Nhập thể loại</label>
+    <select th:field="*{category}">
+        <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
     <button type="submit">Cập Nhật</button>
 </form>
 </body>
