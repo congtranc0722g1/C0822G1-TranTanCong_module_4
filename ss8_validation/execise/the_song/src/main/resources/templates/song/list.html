@@ -26,6 +26,9 @@
         <td th:text="${song.name}"></td>
         <td th:text="${song.singer}"></td>
         <td th:text="${song.category}"></td>
+        <td><a th:href="@{/song/edit/__${song.id}__}">
+            <button class="btn btn-primary">Chỉnh sửa</button>
+        </a></td>
     </tr>
 </table>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

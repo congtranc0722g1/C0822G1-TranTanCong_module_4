@@ -5,8 +5,9 @@
 </head>
 <body>
 <h1>CHỈNH SỬA BÀI HÁT</h1>
-<form action="/edit" th:method="post" th:object="${blog}">
+<form action="/song/edit" th:method="post" th:object="${songDto}">
     <div style="margin-left: 10px">
+        <input type="hidden" th:field="*{id}">
         <p th:for="name">Nhập tên bài hát</p>
         <input type="text" th:field="*{name}">
         <label th:errors="*{name}" class="text-danger"></label>

@@ -1,6 +1,7 @@
 package com.the_song.dto;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class SongDto {
