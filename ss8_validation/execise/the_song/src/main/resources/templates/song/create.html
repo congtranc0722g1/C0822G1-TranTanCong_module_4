@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</head>
+<body>
+<h1> THÊM MỚI BÀI HÁT</h1>
+    <form action="/song/add" method="post" th:object="${songDto}">
+        <div style="margin-left: 10px">
+        <p th:for="name">Nhập tên bài hát</p>
+        <input type="text" th:field="*{name}">
+        <label th:errors="*{name}" class="text-danger"></label>
+        <br>
+        <p th:for="singer">Nhập nghệ sĩ thể hiện</p>
+        <input type="text" th:field="*{singer}">
+        <label th:errors="*{singer}" class="text-danger"></label>
+        <br>
+        <p th:for="category">Nhập thể loại nhạc</p>
+        <input type="text" th:field="*{category}">
+        <label th:errors="*{category}" class="text-danger"></label>
+        <br>
+        <br>
+        <button type="submit">Lưu</button>
+        </div>
+    </form>
+</body>
+</html>

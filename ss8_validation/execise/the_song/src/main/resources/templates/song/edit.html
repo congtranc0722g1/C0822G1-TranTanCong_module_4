@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<h1>CHỈNH SỬA BÀI HÁT</h1>
+<form action="/edit" th:method="post" th:object="${blog}">
+    <div style="margin-left: 10px">
+        <p th:for="name">Nhập tên bài hát</p>
+        <input type="text" th:field="*{name}">
+        <label th:errors="*{name}" class="text-danger"></label>
+        <br>
+        <p th:for="singer">Nhập nghệ sĩ thể hiện</p>
+        <input type="text" th:field="*{singer}">
+        <label th:errors="*{singer}" class="text-danger"></label>
+        <br>
+        <p th:for="category">Nhập thể loại nhạc</p>
+        <input type="text" th:field="*{category}">
+        <label th:errors="*{category}" class="text-danger"></label>
+        <br>
+        <br>
+        <button type="submit">Cập nhật</button>
+    </div>
+</form>
+</body>
+</html>
