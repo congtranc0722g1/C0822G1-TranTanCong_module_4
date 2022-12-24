@@ -12,11 +12,11 @@ public interface IBlogService {
 
     void delete(Blog blog);
 
-    void save(Blog blog);
+    boolean save(Blog blog);
 
     Optional<Blog> findById(int id);
 
-    void edit(Blog blog);
+    boolean edit(Blog blog);
 
     Blog findBlog(int id);
 

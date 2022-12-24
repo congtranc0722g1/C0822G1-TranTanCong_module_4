@@ -28,8 +28,14 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public void save(Blog blog) {
+    public boolean save(Blog blog) {
+        for (int i = 0; i < blogRepository.findAll().size(); i++) {
+            if (blogRepository.findAll().get(i).getTitle().equals(blog.getTitle())) {
+                return false;
+            }
+        }
         blogRepository.save(blog);
+        return true;
     }
 
     @Override
@@ -38,8 +44,14 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public void edit(Blog blog) {
+    public boolean edit(Blog blog) {
+        for (int i = 0; i < blogRepository.findAll().size(); i++) {
+            if (blogRepository.findAll().get(i).getTitle().equals(blog.getTitle())) {
+                return false;
+            }
+        }
         blogRepository.save(blog);
+        return true;
     }
 
     @Override

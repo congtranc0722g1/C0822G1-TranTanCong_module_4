@@ -5,13 +5,14 @@ import javax.persistence.*;
 @Entity
 public class Blog {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
     private String content;
     private String dateOfWriting;
 
     @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "category_id")
     private Category category;
 
     public Blog() {

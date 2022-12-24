@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,8 +57,13 @@ public class BlogController {
     }
 
     @PostMapping("/add")
-    private String save(Blog blog) {
-        blogService.save(blog);
+    private String save(Blog blog, RedirectAttributes redirectAttributes) {
+        boolean check = blogService.save(blog);
+        String mess = "Thêm mới không thành công";
+        if (check) {
+            mess = "Thêm mới thành công";
+        }
+        redirectAttributes.addFlashAttribute("mess", mess);
         return "redirect:/";
     }
 
@@ -71,8 +77,13 @@ public class BlogController {
     }
 
     @PostMapping("/edit")
-    private String edit(Blog blog) {
-        blogService.save(blog);
+    private String edit(Blog blog, RedirectAttributes redirectAttributes) {
+        boolean check = blogService.save(blog);
+        String mess = "Chỉnh sửa không thành công";
+        if (check) {
+            mess = "Chỉnh sửa thành công";
+        }
+        redirectAttributes.addFlashAttribute("mess", mess);
         return "redirect:/";
     }
 
