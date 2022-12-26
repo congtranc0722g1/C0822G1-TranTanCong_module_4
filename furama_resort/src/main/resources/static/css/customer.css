@@ -1,0 +1,62 @@
+.top {
+    margin-top: 30px;
+}
+
+.icon {
+    box-sizing: border-box;
+    margin-left: 20px;
+}
+
+.header {
+    background-color: #badbcc;
+}
+
+.login {
+    margin-right: 7px;
+}
+
+.icon {
+    margin-left: 20px;
+}
+
+.margin {
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.main {
+    margin-left: 20px;
+}
+
+.list {
+    margin-left: 45px;
+    margin-right: 100px;
+}
+
+.edit-background {
+    /*background-color: #25cff2;*/
+}
+
+.footer {
+    margin-top: 10px;
+}
+
+.margin-create-edit{
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.main-customer{
+    background-color: #b6effb;
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+.card-registration .select-arrow {
+    top: 13px;
+}

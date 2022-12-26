@@ -1,0 +1,30 @@
+body {
+    background-color: #badce3;
+}
+
+.log {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+#logo {
+    margin-left: 20px;
+}
+
+.line {
+    display: inline;
+}
+
+.mar {
+    margin-top: 55px;
+}
+
+.left {
+    margin-left: 15px;
+}
+
+.headerss {
+    margin-top: 30px;
+}
