@@ -42,7 +42,7 @@ public class BlogController {
     private String category(@RequestParam(name = "category", defaultValue = "") Integer categoryId, @PageableDefault(size = 2) Pageable pageable, Model model) {
         List<Category> categoryList = categoryService.findAll();
         model.addAttribute("categoryList", categoryList);
-        Page<Blog> blogList = blogService.findByCategory_Id(categoryId, pageable);
+        Page<Blog> blogList = blogService.findByCategoryId(categoryId, pageable);
         model.addAttribute("blogList", blogList);
         model.addAttribute("categoryId", categoryId);
         return "blog/list";

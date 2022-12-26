@@ -20,7 +20,7 @@
       </a>
     </div>
 
-    <div class="col-lg-3">
+    <div class="col-lg-2">
       <a href="../../index.jsp">
         <button class="btn btn-warning btn-outline-danger">Quay lại trang chủ</button>
       </a>
@@ -32,13 +32,15 @@
       </a>
     </div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-5">
       <form action="/customer" method="get" class="d-flex">
-        <input value="${nameSearch}" class="form-control me-2 justify-content-between" type="text" placeholder="Nhập tên"
+        <input th:value="${nameSearch}" class="form-control me-2 justify-content-between" type="text" placeholder="Nhập tên"
                aria-label="Search" style="width: 150px" name="name">
-        <input value="${addressSearch}" class="form-control me-2 justify-content-between" type="text" placeholder="Nhập địa chỉ"
-               aria-label="Search" style="width: 150px" name="address">
-        <input type="hidden" name="action" value="search">
+        <input th:value="${emailSearch}" class="form-control me-2 justify-content-between" type="text" placeholder="Nhập email"
+               aria-label="Search" style="width: 150px" name="email">
+        <select name="customer-type" class="me-1">
+          <option th:each="customerType : ${customerTypeList}" th:value="${customerType.id}" th:text="${customerType.name}"></option>
+        </select>
         <button class="btn btn-success btn-outline-warning" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
         </svg></button>
@@ -68,14 +70,33 @@
           <td th:text="${customer.name}"></td>
           <td th:text="${customer.customerType.name}"></td>
           <td th:text="${customer.dateOfBirth}"></td>
-          <td th:text="${customer.gender}"></td>
+          <td th:if="${customer.gender}">Nam</td>
+          <td th:if="${!customer.gender}">Nữ</td>
           <td th:text="${customer.idCard}"></td>
           <td th:text="${customer.phone}"></td>
           <td th:text="${customer.email}"></td>
           <td th:text="${customer.address}"></td>
+          <td><a th:href="@{/edit/__${customer.id}__}">
+            <button class="btn btn-primary">Chỉnh sửa</button>
+          </a></td>
+          <td>
+            <button type="button" class="btn btn-danger"
+                    th:attr="onclick=|infoDelete('${customer.id}','${customer.name}');|" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">Xóa
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
+    <div class="text-center">
+      <a class="btn btn-secondary" th:href="@{/customer/(page=${customerList.number - 1})}" th:if="${customerList.hasPrevious()}">
+        Trang trước
+      </a>
+      <span th:text="${customerList.number + 1 + '/' + customerList.totalPages}"></span>
+      <a class="btn btn-primary" th:href="@{/customer/(page=${customerList.number + 1})}" th:if="${customerList.hasNext()}">
+        Trang tiếp theo
+      </a>
+    </div>
   </div>
 </div>
 <div class="insert" th:insert="~{/layout::footer}"></div>

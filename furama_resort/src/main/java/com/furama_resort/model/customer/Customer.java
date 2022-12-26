@@ -3,7 +3,6 @@ package com.furama_resort.model.customer;
 import com.furama_resort.model.contract.Contract;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -16,7 +15,7 @@ public class Customer {
     private String name;
 
     @Column(columnDefinition = "date")
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     private boolean gender;
 
@@ -59,11 +58,11 @@ public class Customer {
         this.name = name;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
