@@ -1,44 +1,23 @@
-package com.furama_resort.model.customer;
+package com.furama_resort.dto;
 
 import com.furama_resort.model.contract.Contract;
+import com.furama_resort.model.customer.CustomerType;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CustomerDto {
     private int id;
-
-    @Column(columnDefinition = "varchar(45)")
     private String name;
-
-    @Column(columnDefinition = "date")
     private String dateOfBirth;
-
     private boolean gender;
-
-    @Column(columnDefinition = "varchar(45)", unique = true)
     private String idCard;
-
-    @Column(columnDefinition = "varchar(45)", unique = true)
     private String phone;
-
-    @Column(columnDefinition = "varchar(45)", unique = true)
     private String email;
-
-    @Column(columnDefinition = "varchar(45)")
     private String address;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_type_id", nullable = false, referencedColumnName = "id")
     private CustomerType customerType;
-
-    @OneToMany(mappedBy = "customer")
     private Set<Contract> contracts;
 
-    public Customer() {
+    public CustomerDto() {
 
     }
 

@@ -15,11 +15,12 @@
       <div class="col-12 col-lg-9 col-xl-7">
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">THÊM MỚI KHÁCH HÀNG</h3>
-            <form action="/customer/add" method="post" th:object="${customerDto}">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">CHỈNH SỬA KHÁCH HÀNG</h3>
+            <form action="/customer/edit" method="post" th:object="${customerDto}">
 
               <div class="row">
                 <div class="col-md-6 mb-4">
+                  <input type="hidden" th:field ="*{id}" class="form-control form-control-lg" />
 
                   <div class="form-outline">
                     <label class="form-label" th:for="name">Nhập Tên</label>

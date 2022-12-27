@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,25 +22,26 @@
     </div>
 
     <div class="col-lg-2">
-      <a href="../../index.jsp">
+      <a href="">
         <button class="btn btn-warning btn-outline-danger">Quay lại trang chủ</button>
       </a>
     </div>
 
-    <div class="col-lg-3">
+    <div class="col-lg-2">
       <a href="/customer/add">
-        <button class="btn btn-warning btn-outline-danger">Thêm mới khách hàng</button>
+        <button class="btn btn-outline-primary">Thêm mới</button>
       </a>
     </div>
 
-    <div class="col-lg-5">
+    <div class="col-lg-6">
       <form action="/customer" method="get" class="d-flex">
         <input th:value="${nameSearch}" class="form-control me-2 justify-content-between" type="text" placeholder="Nhập tên"
                aria-label="Search" style="width: 150px" name="name">
         <input th:value="${emailSearch}" class="form-control me-2 justify-content-between" type="text" placeholder="Nhập email"
                aria-label="Search" style="width: 150px" name="email">
         <select name="customer-type" class="me-1">
-          <option th:each="customerType : ${customerTypeList}" th:value="${customerType.id}" th:text="${customerType.name}"></option>
+          <option value="">Chọn loại khách hàng</option>
+          <option th:each="customerType : ${customerTypeList}" th:value="${customerType.id}" th:text="${customerType.name}" th:selected="${customerTypeSearch == customerType.id}"></option>
         </select>
         <button class="btn btn-success btn-outline-warning" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -47,13 +49,14 @@
       </form>
     </div>
   </div>
+  <p id="mess" class="text-center text-danger mt-2" th:text="${mess}"></p>
   <div class="row margin">
     <table class="table table-striped table-bordered" id="tableCustomer" style="width: 100%">
       <thead>
       <tr class="align text-center">
         <th>STT</th>
-        <th>Loại Khách</th>
         <th>Họ Tên</th>
+        <th>Loại Khách</th>
         <th>Ngày Sinh</th>
         <th>Giới Tính</th>
         <th>Số CMND</th>
@@ -65,7 +68,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr th:each="customer, status : ${customerList}">
+        <tr th:each="customer, status : ${customerList.content}">
           <td th:text="${status.count}"></td>
           <td th:text="${customer.name}"></td>
           <td th:text="${customer.customerType.name}"></td>
@@ -76,8 +79,8 @@
           <td th:text="${customer.phone}"></td>
           <td th:text="${customer.email}"></td>
           <td th:text="${customer.address}"></td>
-          <td><a th:href="@{/edit/__${customer.id}__}">
-            <button class="btn btn-primary">Chỉnh sửa</button>
+          <td><a th:href="@{/customer/edit/__${customer.id}__}">
+            <button class="btn btn-primary" style="width: 110px">Chỉnh sửa</button>
           </a></td>
           <td>
             <button type="button" class="btn btn-danger"
@@ -88,7 +91,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="text-center">
+    <div class="text-center mb-1">
       <a class="btn btn-secondary" th:href="@{/customer/(page=${customerList.number - 1})}" th:if="${customerList.hasPrevious()}">
         Trang trước
       </a>
@@ -99,7 +102,39 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa Khách Hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/customer/delete" method="post">
+        <div class="modal-body">
+          <input type="text" hidden id="deleteId" name="id">
+          <span>Bạn có muốn xóa khách hàng </span> <span style="color: red" id="deleteName"></span>
+          <span>không ?</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Xóa</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="insert" th:insert="~{/layout::footer}"></div>
 <script src="../../bootstrap-5.1.3-dist/js/bootstrap.js"></script>
+<script>
+  function infoDelete(id, name) {
+    document.getElementById("deleteId").value = id;
+    document.getElementById("deleteName").innerText = name;
+  }
+</script>
+<script>
+  setTimeout(function(){ close(document.getElementById("mess").style.display= "none") }, 5000);
+</script>
 </body>
 </html>
