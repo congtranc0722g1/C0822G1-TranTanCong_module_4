@@ -1,12 +1,22 @@
 package com.furama_resort.controller;
 
+import com.furama_resort.dto.FacilityDto;
 import com.furama_resort.model.facility.Facility;
+import com.furama_resort.model.facility.FacilityType;
+import com.furama_resort.model.facility.RentType;
 import com.furama_resort.service.IFacilityService;
+import com.furama_resort.service.IFacilityTypeService;
+import com.furama_resort.service.IRentTypeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -17,10 +27,38 @@ public class FacilityController {
     @Autowired
     private IFacilityService facilityService;
 
+    @Autowired
+    private IFacilityTypeService facilityTypeService;
+
+    @Autowired
+    private IRentTypeService rentTypeService;
+
     @GetMapping("")
     private String showList(Model model){
         List<Facility> facilityList = facilityService.findAll();
         model.addAttribute("facilityList", facilityList);
         return "facility/list";
+    }
+
+    @GetMapping("/add")
+    private String showFormCreate(Model model){
+        model.addAttribute("facilityDto", new FacilityDto());
+        List<FacilityType> facilityTypeList = facilityTypeService.findAll();
+        model.addAttribute("facilityTypeList", facilityTypeList);
+        List<RentType> rentTypeList = rentTypeService.findAll();
+        model.addAttribute("rentTypeList", rentTypeList);
+        return "facility/create";
+    }
+
+    @PostMapping("/add")
+    private String add(@Validated FacilityDto facilityDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if (bindingResult.hasErrors()){
+            return "facility/create";
+        }
+        Facility facility = new Facility();
+        BeanUtils.copyProperties(facilityDto, facility);
+        facilityService.save(facility);
+        redirectAttributes.addFlashAttribute("mess", "Thêm mới thành công!");
+        return "redirect:/facility";
     }
 }
