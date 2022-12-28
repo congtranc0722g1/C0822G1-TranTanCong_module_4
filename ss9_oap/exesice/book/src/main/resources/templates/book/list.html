@@ -20,7 +20,6 @@
         <th>Tên Sách</th>
         <th>Tác Giả</th>
         <th>Số Lượng</th>
-        <th>Mã Thuê</th>
         <th>Xem chi tiết</th>
 
     </tr>
@@ -29,7 +28,6 @@
         <td th:text="${book.name}"></td>
         <td th:text="${book.author}"></td>
         <td th:text="${book.amount}"></td>
-        <td th:text="${book.bookCode.bookCode}"></td>
         <td><a th:href="@{/book/detail/__${book.id}__}">
             <button class="btn btn-secondary">Chi tiết</button>
         </a></td>

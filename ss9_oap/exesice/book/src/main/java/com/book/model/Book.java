@@ -10,9 +10,6 @@ public class Book {
     private String author;
     private Integer amount;
 
-    @OneToOne(mappedBy = "book")
-    private BookCode bookCode;
-
     public Book() {
 
     }
@@ -49,11 +46,4 @@ public class Book {
         this.amount = amount;
     }
 
-    public BookCode getBookCode() {
-        return bookCode;
-    }
-
-    public void setBookCode(BookCode bookCode) {
-        this.bookCode = bookCode;
-    }
 }

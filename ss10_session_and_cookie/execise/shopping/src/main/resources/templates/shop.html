@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<a th:href="@{/cart}">Xem giỏ hàng</a>
+<table class="table table-info">
+    <tr>
+        <th>STT</th>
+        <th>Tên</th>
+        <th>Hình Ảnh</th>
+        <th>Giá</th>
+        <th>Mô Tả</th>
+        <th>Thêm Vào Giỏ Hàng</th>
+    </tr>
+    <th:block th:each="product, stt : ${productList}">
+        <tr>
+            <td th:text="${stt.count}"></td>
+            <td th:text="${product.name}"></td>
+            <td>
+                <a th:href="@{/shop/detail/__${product.id}__}">
+                    <img th:src="@{${product.img}}" style="width: 50px; height: 50px">
+                </a>
+            </td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.description}"></td>
+            <td>
+                <button class="btn btn-outline-warning"><a th:href="@{/shop/add/__${product.id}__}">Thêm vào giỏ
+                    hàng</a></button>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<div th:if="${productAdvertisement}">
+    <div class="card sticky-top border-0">
+        <img th:src="${productAdvertisement.img}">
+        <div class="card-body">
+            <h3 class="card-title" th:text="${productAdvertisement.name}"></h3>
+            <p class="card-text" th:text="${productAdvertisement.price}"></p>
+            <p class="card-text" th:text="${productAdvertisement.description}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

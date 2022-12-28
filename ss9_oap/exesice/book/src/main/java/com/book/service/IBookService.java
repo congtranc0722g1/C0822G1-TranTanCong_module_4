@@ -9,8 +9,8 @@ public interface IBookService {
     List<Book> findAll();
 
     Optional<Book> findById(int id);
-
-    void borrowBook(int id);
-
+//
+    int borrowBook(int id) throws Exception;
+//
     void giveBook(int id);
 }

@@ -31,11 +31,9 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public void borrowBook(int id) {
-        Book book = null;
-        try {
-            book = bookRepository.findById(id).get();
-            if (book.getAmount() <= 0) {
+    public int borrowBook(int id) throws Exception {
+        Book book = bookRepository.findById(id).get();
+            if (book.getAmount() <= 0){
                 throw new Exception();
             }
             book.setAmount(book.getAmount() - 1);
@@ -43,18 +41,17 @@ public class BookService implements IBookService {
             int code = (int) Math.floor(((Math.random() * 89999) + 10000));
             BookCode bookCode = new BookCode();
             bookCode.setBookCode(code);
-            bookCode.getBook().setId(book.getId());
+            bookCode.setId(book.getId());
             bookCodeRepository.save(bookCode);
-        } catch (Exception e) {
-
-        }
+            return code;
     }
 
     @Override
     public void giveBook(int code) {
-        Book book = bookRepository.findByBookCode_BookCode(code);
+        BookCode bookCode = bookCodeRepository.findByBookCode(code);
+        Book book = bookRepository.findById(bookCode.getId()).get();
         book.setAmount(book.getAmount() + 1);
         bookRepository.save(book);
-        bookCodeRepository.deleteByBookCode(code);
+        bookCodeRepository.deleteById(bookCode.getId());
     }
 }

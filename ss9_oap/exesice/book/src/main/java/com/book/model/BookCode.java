@@ -5,39 +5,26 @@ import javax.persistence.*;
 @Entity
 public class BookCode {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private int bookCode;
-
-    @OneToOne
-    @JoinColumn(name = "book_id", nullable = false, referencedColumnName = "id")
-    private Book book;
+    private int id;
 
     public BookCode() {
 
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getBookCode() {
+    public int getBookCode() {
         return bookCode;
     }
 
-    public void setBookCode(Integer bookCode) {
+    public void setBookCode(int bookCode) {
         this.bookCode = bookCode;
     }
 
-    public Book getBook() {
-        return book;
+    public int getId() {
+        return id;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setId(int id) {
+        this.id = id;
     }
 }
