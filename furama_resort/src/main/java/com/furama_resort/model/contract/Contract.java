@@ -40,4 +40,68 @@ public class Contract {
     public Contract() {
 
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDate getStartDay() {
+        return startDay;
+    }
+
+    public void setStartDay(LocalDate startDay) {
+        this.startDay = startDay;
+    }
+
+    public LocalDate getEndDay() {
+        return endDay;
+    }
+
+    public void setEndDay(LocalDate endDay) {
+        this.endDay = endDay;
+    }
+
+    public double getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(double deposit) {
+        this.deposit = deposit;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Facility getFacility() {
+        return facility;
+    }
+
+    public void setFacility(Facility facility) {
+        this.facility = facility;
+    }
+
+    public Set<ContractDetail> getContractDetails() {
+        return contractDetails;
+    }
+
+    public void setContractDetails(Set<ContractDetail> contractDetails) {
+        this.contractDetails = contractDetails;
+    }
 }
