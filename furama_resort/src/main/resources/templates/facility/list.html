@@ -21,24 +21,26 @@
       </a>
     </div>
 
-    <div class="col-lg-2">
+    <div class="col-lg-3">
       <a href="">
         <button class="btn btn-warning btn-outline-danger">Quay lại trang chủ</button>
       </a>
     </div>
 
-    <div class="col-lg-2">
+    <div class="col-lg-3">
       <a href="/facility/add">
         <button class="btn btn-outline-primary">Thêm mới</button>
       </a>
     </div>
 
-    <div class="col-lg-6">
-      <form action="/customer" method="get" class="d-flex">
-        <input th:value="${nameSearch}" class="form-control me-2 justify-content-between" type="text" placeholder="Nhập tên"
+    <div class="col-lg-4">
+      <form action="/facility" method="get" class="d-flex">
+        <input th:value="${nameSearch}" class="form-control me-2 justify-content-between" type="text" placeholder="Nhập tên dịch vụ"
                aria-label="Search" style="width: 150px" name="name">
-        <input th:value="${emailSearch}" class="form-control me-2 justify-content-between" type="text" placeholder="Nhập email"
-               aria-label="Search" style="width: 150px" name="email">
+        <select name="facility-type" class="me-1">
+          <option value="">Chọn loại dịch vụ</option>
+          <option th:each="facilityType : ${facilityTypeList}" th:value="${facilityType.id}" th:text="${facilityType.name}" th:selected="${facilityTypeSearch == facilityType.id}"></option>
+        </select>
         <button class="btn btn-success btn-outline-warning" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
         </svg></button>
@@ -92,15 +94,15 @@
         </tr>
       </tbody>
     </table>
-<!--    <div class="text-center mb-1">-->
-<!--      <a class="btn btn-secondary" th:href="@{/customer/(page=${customerList.number - 1})}" th:if="${customerList.hasPrevious()}">-->
-<!--        Trang trước-->
-<!--      </a>-->
-<!--      <span th:text="${customerList.number + 1 + '/' + customerList.totalPages}"></span>-->
-<!--      <a class="btn btn-primary" th:href="@{/customer/(page=${customerList.number + 1})}" th:if="${customerList.hasNext()}">-->
-<!--        Trang tiếp theo-->
-<!--      </a>-->
-<!--    </div>-->
+    <div class="text-center mb-1">
+      <a class="btn btn-secondary" th:href="@{/facility/(page=${facilityList.number - 1})}" th:if="${facilityList.hasPrevious()}">
+        Trang trước
+      </a>
+      <span th:text="${facilityList.number + 1 + '/' + facilityList.totalPages}"></span>
+      <a class="btn btn-primary" th:href="@{/facility/(page=${facilityList.number + 1})}" th:if="${facilityList.hasNext()}">
+        Trang tiếp theo
+      </a>
+    </div>
   </div>
 </div>
 
@@ -108,13 +110,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Xóa Khách Hàng</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Xóa Dịch Vụ</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/customer/delete" method="post">
+      <form action="/facility/delete" method="post">
         <div class="modal-body">
           <input type="text" hidden id="deleteId" name="id">
-          <span>Bạn có muốn xóa khách hàng </span> <span style="color: red" id="deleteName"></span>
+          <span>Bạn có muốn xóa dịch vụ </span> <span style="color: red" id="deleteName"></span>
           <span>không ?</span>
         </div>
         <div class="modal-footer">

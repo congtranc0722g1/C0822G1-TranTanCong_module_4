@@ -19,6 +19,8 @@
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">CHỈNH SỬA DỊCH VỤ</h3>
                         <form action="/facility/edit" method="post" th:object="${facilityDto}">
 
+                            <input type="hidden" th:field="*{id}" class="form-control form-control-lg"/>
+
 
                             <div class="form-outline">
                                 <label th:for="facilityType" class="form-label fs-6">Loại Dịch Vụ</label>

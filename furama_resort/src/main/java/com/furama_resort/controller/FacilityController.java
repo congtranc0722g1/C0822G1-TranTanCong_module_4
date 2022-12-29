@@ -9,14 +9,14 @@ import com.furama_resort.service.IFacilityTypeService;
 import com.furama_resort.service.IRentTypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -35,9 +35,20 @@ public class FacilityController {
     private IRentTypeService rentTypeService;
 
     @GetMapping("")
-    private String showList(Model model){
-        List<Facility> facilityList = facilityService.findAll();
+    private String showList(@RequestParam(name = "name", defaultValue = "") String nameSearch, @RequestParam(name = "facility-type", defaultValue = "") String facilityTypeSearch, @PageableDefault(size = 5) Pageable pageable, Model model){
+
+        List<FacilityType> facilityTypeList = facilityTypeService.findAll();
+        model.addAttribute("facilityTypeList", facilityTypeList);
+
+        Page<Facility> facilityList = facilityService.findAllSearch(nameSearch, facilityTypeSearch, pageable);
         model.addAttribute("facilityList", facilityList);
+
+        if(!facilityTypeSearch.equals("")) {
+            model.addAttribute("facilityTypeSearch", Integer.parseInt(facilityTypeSearch));
+        }
+
+        model.addAttribute("nameSearch", nameSearch);
+
         return "facility/list";
     }
 
@@ -64,7 +75,7 @@ public class FacilityController {
     }
 
     @GetMapping("/edit/{id}")
-    private String edit(@PathVariable("id") Integer id, Model model){
+    private String showFormEdit(@PathVariable("id") Integer id, Model model){
         List<RentType> rentTypeList = rentTypeService.findAll();
         model.addAttribute("rentTypeList", rentTypeList);
         List<FacilityType> facilityTypeList = facilityTypeService.findAll();
@@ -75,5 +86,21 @@ public class FacilityController {
         model.addAttribute("facilityType", facilityDto.getFacilityType().getId());
         model.addAttribute("facilityDto", facilityDto);
         return "facility/edit";
+    }
+
+    @PostMapping("/edit")
+    private String edit(@Validated FacilityDto facilityDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        Facility facility = new Facility();
+        BeanUtils.copyProperties(facilityDto, facility);
+        facilityService.save(facility);
+        redirectAttributes.addFlashAttribute("mess", "Chỉnh sửa thành công!");
+        return "redirect:/facility";
+    }
+
+    @PostMapping("/delete")
+    private String delete(@RequestParam(value = "id", defaultValue = "-1") Integer id, RedirectAttributes redirectAttributes){
+        facilityService.delete(id);
+        redirectAttributes.addFlashAttribute("mess", "Xóa thành công!");
+        return "redirect:/facility";
     }
 }
