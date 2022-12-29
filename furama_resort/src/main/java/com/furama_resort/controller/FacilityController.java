@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -60,5 +61,19 @@ public class FacilityController {
         facilityService.save(facility);
         redirectAttributes.addFlashAttribute("mess", "Thêm mới thành công!");
         return "redirect:/facility";
+    }
+
+    @GetMapping("/edit/{id}")
+    private String edit(@PathVariable("id") Integer id, Model model){
+        List<RentType> rentTypeList = rentTypeService.findAll();
+        model.addAttribute("rentTypeList", rentTypeList);
+        List<FacilityType> facilityTypeList = facilityTypeService.findAll();
+        model.addAttribute("facilityTypeList", facilityTypeList);
+        Facility facility = facilityService.findById(id).get();
+        FacilityDto facilityDto = new FacilityDto();
+        BeanUtils.copyProperties(facility, facilityDto);
+        model.addAttribute("facilityType", facilityDto.getFacilityType().getId());
+        model.addAttribute("facilityDto", facilityDto);
+        return "facility/edit";
     }
 }
