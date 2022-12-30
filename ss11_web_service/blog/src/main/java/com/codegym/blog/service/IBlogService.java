@@ -10,4 +10,6 @@ public interface IBlogService {
     List<Blog> findBlog(int id);
 
     Blog findById(int id);
+
+    List<Blog> findByTitleContaining(String title);
 }

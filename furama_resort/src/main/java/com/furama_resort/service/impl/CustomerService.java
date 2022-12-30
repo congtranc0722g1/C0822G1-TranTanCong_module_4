@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,18 +16,35 @@ public class CustomerService implements ICustomerService {
     private ICustomerRepository customerRepository;
 
     @Override
-    public List<Customer> findAll() {
-        return customerRepository.findAll();
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 
     @Override
-    public void save(Customer customer) {
+    public Boolean save(Customer customer) {
+        for (int i = 0; i < customerRepository.findAll().size(); i++) {
+            if (customer.getIdCard().equals(customerRepository.findAll().get(i).getIdCard()) || customer.getPhone().equals(customerRepository.findAll().get(i).getPhone()) || customer.getEmail().equals(customerRepository.findAll().get(i).getEmail())){
+                return false;
+
+            }
+        }
+        customerRepository.save(customer);
+        return true;
+    }
+
+    @Override
+    public void update(Customer customer) {
         customerRepository.save(customer);
     }
 
     @Override
-    public Page<Customer> findAllSearch(String name, String email, String customerTypeId, Pageable pageable) {
+    public Page<Customer> findAllSearch(String name, String email, Integer customerTypeId, Pageable pageable) {
         return customerRepository.findAllSearch(name, email, customerTypeId, pageable);
+    }
+
+    @Override
+    public Page<Customer> findNameEmail(String name, String email, Pageable pageable) {
+        return customerRepository.findNameEmail(name, email, pageable);
     }
 
     @Override

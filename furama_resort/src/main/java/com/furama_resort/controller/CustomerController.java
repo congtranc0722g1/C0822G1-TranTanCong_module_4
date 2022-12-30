@@ -30,14 +30,21 @@ public class CustomerController {
     private ICustomerTypeService customerTypeService;
 
     @GetMapping("")
-    private  String showListCustomer(@RequestParam(name = "name", defaultValue = "") String nameSearch, @RequestParam(name = "email", defaultValue = "") String emailSearch, @RequestParam(name = "customer-type", defaultValue = "") String customerTypeSearch, @PageableDefault(size = 5) Pageable pageable, Model model){
+    private  String showListCustomer(@RequestParam(name = "name", defaultValue = "") String nameSearch, @RequestParam(name = "email", defaultValue = "") String emailSearch, @RequestParam(name = "customer-type", defaultValue = "") Integer customerTypeSearch, @PageableDefault(size = 5) Pageable pageable, Model model){
         Page<Customer> customerList = customerService.findAllSearch(nameSearch, emailSearch, customerTypeSearch, pageable);
+        if (nameSearch.equals("") && emailSearch.equals("") && customerTypeSearch == null){
+            customerList = customerService.findAll(pageable);
+        }
+
+        if ((!nameSearch.equals("") || !emailSearch.equals("")) && customerTypeSearch == null){
+            customerList = customerService.findNameEmail(nameSearch, emailSearch, pageable);
+        }
+
         model.addAttribute("customerList", customerList);
         model.addAttribute("nameSearch", nameSearch);
         model.addAttribute("emailSearch", emailSearch);
-        if(!customerTypeSearch.equals("")) {
-            model.addAttribute("customerTypeSearch", Integer.parseInt(customerTypeSearch));
-        }
+        model.addAttribute("customerTypeSearch", customerTypeSearch);
+
         List<CustomerType> customerTypeList = customerTypeService.findAll();
         model.addAttribute("customerTypeList", customerTypeList);
         return "customer/list";
@@ -58,8 +65,12 @@ public class CustomerController {
         }
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-        customerService.save(customer);
-        redirectAttributes.addFlashAttribute("mess", "Thêm mới thành công!");
+        Boolean check = customerService.save(customer);
+        String mess = "Thêm mới không thành công!";
+        if (check){
+            mess = "Thêm mới thành công!";
+        }
+        redirectAttributes.addFlashAttribute("mess", mess);
         return "redirect:/customer";
     }
 
@@ -81,7 +92,7 @@ public class CustomerController {
         }
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-        customerService.save(customer);
+        customerService.update(customer);
         redirectAttributes.addFlashAttribute("mess", "Chỉnh sửa thành công!");
         return "redirect:/customer";
     }

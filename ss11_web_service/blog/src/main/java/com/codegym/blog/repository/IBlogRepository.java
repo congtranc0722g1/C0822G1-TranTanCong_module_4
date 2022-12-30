@@ -14,4 +14,6 @@ public interface IBlogRepository extends JpaRepository<Blog, Integer> {
 
     @Query(value = "select * from blog where category_id = :id", nativeQuery = true)
     List<Blog> findBlog(@Param("id") int id);
+
+    List<Blog> findByTitleContaining(String title);
 }

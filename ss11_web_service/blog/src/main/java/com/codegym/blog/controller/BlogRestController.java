@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/blogs")
+@CrossOrigin("*")
 public class BlogRestController {
 
     @Autowired
@@ -27,7 +28,7 @@ public class BlogRestController {
     public ResponseEntity<List<Blog>> showListBlog() {
         List<Blog> blogList = blogService.findAll();
         if (blogList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
@@ -36,7 +37,7 @@ public class BlogRestController {
     public ResponseEntity<List<Category>> showListCategory() {
         List<Category> categoryList = categoryService.findAll();
         if (categoryList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
@@ -45,7 +46,7 @@ public class BlogRestController {
     public ResponseEntity<?> category(@PathVariable("id") Integer categoryId) {
         List<Blog> blogList = blogService.findBlog(categoryId);
         if (blogList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
@@ -54,8 +55,14 @@ public class BlogRestController {
     private ResponseEntity<Blog> detail(@PathVariable("id") Integer id) {
         Blog blog = blogService.findById(id);
         if (blog == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(blog, HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{title}")
+    private ResponseEntity<List<Blog>> search(@PathVariable("title") String title){
+        List<Blog> blogList = blogService.findByTitleContaining(title);
+        return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 }
