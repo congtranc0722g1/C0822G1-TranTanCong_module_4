@@ -42,9 +42,7 @@
         let search = document.getElementById("search").value;
         $.ajax({
             type: "GET",
-            //tên API
             url: "http://localhost:8080/blogs/search/" + search,
-            //xử lý khi thành công
             success: function (data) {
                 //data => đang ở dạng json
                 let table = '';// lưu trữ table
@@ -61,7 +59,6 @@
                         `
                 }
                 $('#my-body').html(table)
-                // document.getElementById('smartphoneList').innerHTML = content;
             }
         });
     }
@@ -71,10 +68,8 @@
             type: "GET",
             //tên API
             url: "http://localhost:8080/blogs",
-            //xử lý khi thành công
             success: function (data) {
-                //data => đang ở dạng json
-                let table = '';// lưu trữ table
+                let table = '';
                 for (let i = 0; i < data.length; i++) {
                     table +=
                         `
@@ -88,7 +83,6 @@
                         `
                 }
                 $('#my-body').html(table)
-                // document.getElementById('smartphoneList').innerHTML = content;
             }
         });
     }
