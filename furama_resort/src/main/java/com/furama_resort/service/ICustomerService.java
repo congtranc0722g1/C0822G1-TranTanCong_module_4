@@ -6,12 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface ICustomerService {
     Page<Customer> findAll(Pageable pageable);
 
-    Boolean save(Customer customer);
+    void save(Customer customer);
 
     void update(Customer customer);
 
@@ -22,4 +23,6 @@ public interface ICustomerService {
     Optional<Customer> findById(int id);
 
     void delete(Customer customer);
+
+    public Map<String, String> check(Customer customer);
 }

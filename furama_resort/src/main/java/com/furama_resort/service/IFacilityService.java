@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IFacilityService {
-    List<Facility> findAll();
+    Page<Facility> findAll(Pageable pageable);
 
     void save(Facility facility);
 
@@ -18,5 +18,7 @@ public interface IFacilityService {
 
     void delete(Integer id);
 
-    Page<Facility> findAllSearch(String name, String facilityTypeId, Pageable pageable);
+    Page<Facility> findAllSearch(String name, Integer facilityTypeId, Pageable pageable);
+
+    Page<Facility> findName(String name, Pageable pageable);
 }

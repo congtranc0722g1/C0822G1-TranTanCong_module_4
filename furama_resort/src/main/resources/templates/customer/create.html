@@ -43,6 +43,7 @@
                   <div class="form-outline datepicker w-100">
                     <label th:for="idCard" class="form-label">CMND</label>
                     <input type="text" th:field ="*{idCard}" class="form-control form-control-lg" />
+                    <label th:errors="*{idCard}" class="text-danger"></label>
                   </div>
 
                 </div>
@@ -69,6 +70,7 @@
                   <div class="form-outline">
                     <label th:for="phone" class="form-label">Số Điện Thoại</label>
                     <input type="text" th:field ="*{phone}" class="form-control form-control-lg" />
+                    <label th:errors="*{phone}" class="text-danger"></label>
                   </div>
 
                 </div>
@@ -77,6 +79,7 @@
                   <div class="form-outline">
                     <label th:for="email" class="form-label">Email</label>
                     <input type="text" th:field ="*{email}" class="form-control form-control-lg" />
+                    <label th:errors="*{email}" class="text-danger"></label>
                   </div>
 
                 </div>

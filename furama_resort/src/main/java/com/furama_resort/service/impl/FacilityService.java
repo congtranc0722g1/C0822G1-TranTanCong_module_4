@@ -19,8 +19,8 @@ public class FacilityService implements IFacilityService {
     private IFacilityRepository facilityRepository;
 
     @Override
-    public List<Facility> findAll() {
-        return facilityRepository.findAll();
+    public Page<Facility> findAll(Pageable pageable) {
+        return facilityRepository.findAll(pageable);
     }
 
     @Override
@@ -39,7 +39,12 @@ public class FacilityService implements IFacilityService {
     }
 
     @Override
-    public Page<Facility> findAllSearch(String name, String facilityTypeId, Pageable pageable) {
+    public Page<Facility> findAllSearch(String name, Integer facilityTypeId, Pageable pageable) {
         return facilityRepository.findAllSearch(name, facilityTypeId, pageable);
+    }
+
+    @Override
+    public Page<Facility> findName(String name, Pageable pageable) {
+        return facilityRepository.findName(name, pageable);
     }
 }

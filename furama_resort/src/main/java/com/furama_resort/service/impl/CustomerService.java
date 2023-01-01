@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -21,15 +23,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public Boolean save(Customer customer) {
-        for (int i = 0; i < customerRepository.findAll().size(); i++) {
-            if (customer.getIdCard().equals(customerRepository.findAll().get(i).getIdCard()) || customer.getPhone().equals(customerRepository.findAll().get(i).getPhone()) || customer.getEmail().equals(customerRepository.findAll().get(i).getEmail())){
-                return false;
-
-            }
-        }
+    public void save(Customer customer) {
         customerRepository.save(customer);
-        return true;
     }
 
     @Override
@@ -55,5 +50,22 @@ public class CustomerService implements ICustomerService {
     @Override
     public void delete(Customer customer) {
         customerRepository.delete(customer);
+    }
+
+    @Override
+    public Map<String, String> check(Customer customer) {
+        Map<String, String> checkMap = new HashMap<>();
+        for (int i = 0; i < customerRepository.findAll().size(); i++) {
+            if (customer.getIdCard().equals(customerRepository.findAll().get(i).getIdCard())) {
+                checkMap.put("checkIdCard", "CMND đã có trong hệ thống");
+            }
+            if (customer.getPhone().equals(customerRepository.findAll().get(i).getPhone())) {
+                checkMap.put("checkPhone", "Số điện thoại đã có trong hệ thống");
+            }
+            if (customer.getEmail().equals(customerRepository.findAll().get(i).getEmail())) {
+                checkMap.put("checkEmail", "Email đã có trong hệ thống");
+            }
+        }
+        return checkMap;
     }
 }

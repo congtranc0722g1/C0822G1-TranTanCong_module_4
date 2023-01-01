@@ -17,7 +17,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -59,18 +61,26 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
-    private String add(@Validated CustomerDto customerDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-        if (bindingResult.hasErrors()){
-            return "customer/create";
-        }
+    private String add(@Validated CustomerDto customerDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
+        List<CustomerType> customerTypeList = customerTypeService.findAll();
+        model.addAttribute("customerTypeList", customerTypeList);
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-        Boolean check = customerService.save(customer);
-        String mess = "Thêm mới không thành công!";
-        if (check){
-            mess = "Thêm mới thành công!";
-        }
-        redirectAttributes.addFlashAttribute("mess", mess);
+        Map<String, String> checkList = customerService.check(customer);
+            if (checkList.get("checkIdCard") != null){
+                bindingResult.rejectValue("idCard", "idCard", checkList.get("checkIdCard"));
+            }
+            if (checkList.get("checkPhone") != null){
+                bindingResult.rejectValue("phone", "phone", checkList.get("checkPhone"));
+            }
+            if (checkList.get("checkEmail") != null){
+                bindingResult.rejectValue("email", "email", checkList.get("checkEmail"));
+            }
+            if (bindingResult.hasErrors()){
+                return "customer/create";
+            }
+                customerService.save(customer);
+                redirectAttributes.addFlashAttribute("mess", "Thêm mới thành công!");
         return "redirect:/customer";
     }
 

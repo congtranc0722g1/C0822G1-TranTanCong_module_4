@@ -35,17 +35,22 @@ public class FacilityController {
     private IRentTypeService rentTypeService;
 
     @GetMapping("")
-    private String showList(@RequestParam(name = "name", defaultValue = "") String nameSearch, @RequestParam(name = "facility-type", defaultValue = "") String facilityTypeSearch, @PageableDefault(size = 5) Pageable pageable, Model model){
+    private String showList(@RequestParam(name = "name", defaultValue = "") String nameSearch, @RequestParam(name = "facility-type", defaultValue = "") Integer facilityTypeSearch, @PageableDefault(size = 5) Pageable pageable, Model model){
+        Page<Facility> facilityList = facilityService.findAllSearch(nameSearch, facilityTypeSearch, pageable);
+        if (nameSearch.equals("") && facilityTypeSearch == null){
+            facilityList = facilityService.findAll(pageable);
+        }
+
+        if (!nameSearch.equals("") && facilityTypeSearch == null){
+            facilityList = facilityService.findName(nameSearch, pageable);
+        }
 
         List<FacilityType> facilityTypeList = facilityTypeService.findAll();
         model.addAttribute("facilityTypeList", facilityTypeList);
 
-        Page<Facility> facilityList = facilityService.findAllSearch(nameSearch, facilityTypeSearch, pageable);
         model.addAttribute("facilityList", facilityList);
 
-        if(!facilityTypeSearch.equals("")) {
-            model.addAttribute("facilityTypeSearch", Integer.parseInt(facilityTypeSearch));
-        }
+        model.addAttribute("facilityTypeSearch", facilityTypeSearch);
 
         model.addAttribute("nameSearch", nameSearch);
 
