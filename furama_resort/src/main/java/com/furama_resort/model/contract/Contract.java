@@ -1,5 +1,6 @@
 package com.furama_resort.model.contract;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.furama_resort.model.customer.Customer;
 import com.furama_resort.model.employee.Employee;
 import com.furama_resort.model.facility.Facility;
@@ -35,6 +36,7 @@ public class Contract {
     private Facility facility;
 
     @OneToMany(mappedBy = "contract")
+    @JsonBackReference
     private Set<ContractDetail> contractDetails;
 
     public Contract() {

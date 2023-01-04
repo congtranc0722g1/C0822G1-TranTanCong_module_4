@@ -1,5 +1,7 @@
 package com.furama_resort.model.contract;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
