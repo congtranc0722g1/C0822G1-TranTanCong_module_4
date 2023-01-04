@@ -1,12 +1,17 @@
 package com.furama_resort.dto;
 
 import com.furama_resort.model.contract.Contract;
+import com.furama_resort.model.facility.Facility;
 import com.furama_resort.model.facility.FacilityType;
 import com.furama_resort.model.facility.RentType;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
-public class FacilityDto {
+public class FacilityDto implements Validator {
     private Integer id;
     private String name;
     private Integer area;
@@ -127,5 +132,20 @@ public class FacilityDto {
 
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        FacilityDto facilityDto = (FacilityDto) target;
+        if (facilityDto.name.equals("")){
+            errors.rejectValue("name", "name", "Không được để trống");
+        }else if (!facilityDto.name.matches("^[A-Z]$")){
+            errors.rejectValue("name", "name", "Tên không đúng định dạng");
+        }
     }
 }

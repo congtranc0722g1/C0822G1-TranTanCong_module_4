@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -46,5 +48,19 @@ public class FacilityService implements IFacilityService {
     @Override
     public Page<Facility> findName(String name, Pageable pageable) {
         return facilityRepository.findName(name, pageable);
+    }
+
+    @Override
+    public void check(Facility facility) throws Exception {
+        for (int i = 0; i < facilityRepository.findAll().size(); i++) {
+            if (facility.getName().equals(facilityRepository.findAll().get(i).getName())){
+                throw new Exception("Tên không được trùng");
+            }
+        }
+    }
+
+    @Override
+    public List<Facility> findAllFacility() {
+        return facilityRepository.findAll();
     }
 }

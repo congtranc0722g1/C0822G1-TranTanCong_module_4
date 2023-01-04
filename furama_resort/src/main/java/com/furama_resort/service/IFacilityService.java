@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface IFacilityService {
@@ -21,4 +22,8 @@ public interface IFacilityService {
     Page<Facility> findAllSearch(String name, Integer facilityTypeId, Pageable pageable);
 
     Page<Facility> findName(String name, Pageable pageable);
+
+    void check (Facility facility) throws Exception;
+
+    List<Facility> findAllFacility();
 }

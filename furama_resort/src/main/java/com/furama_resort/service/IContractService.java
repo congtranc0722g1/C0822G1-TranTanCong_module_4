@@ -1,9 +1,11 @@
 package com.furama_resort.service;
 
 import com.furama_resort.model.contract.Contract;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IContractService {
-    List<Contract> findAll();
+    Page<Contract> findAll(Pageable pageable);
+
+    void save(Contract contract);
 }

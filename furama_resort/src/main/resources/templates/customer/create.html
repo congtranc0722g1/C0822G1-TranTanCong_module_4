@@ -24,6 +24,7 @@
                   <div class="form-outline">
                     <label class="form-label" th:for="name">Nhập Tên</label>
                     <input type="text" th:field ="*{name}" class="form-control form-control-lg" />
+                    <label th:errors="*{name}" class="text-danger"></label>
                   </div>
 
                 </div>

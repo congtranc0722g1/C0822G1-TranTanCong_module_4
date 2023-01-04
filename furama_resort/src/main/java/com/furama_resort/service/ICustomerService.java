@@ -24,5 +24,7 @@ public interface ICustomerService {
 
     void delete(Customer customer);
 
-    public Map<String, String> check(Customer customer);
+    Map<String, String> check(Customer customer);
+
+    List<Customer> findAllCustomer();
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Đây là thẻ p1</p>
+<p id="my-id">Đây là thẻ p2</p>
+<p>Đây là thẻ p3</p>
+<p>Đây là thẻ p4</p>
+<p>Đây là thẻ p5</p>
+
+<script>
+    let name = 'Nguyễn Văn A';
+    let age = 18;
+    alert('Tên của bạ là: ' + name + " Tuổi là: " + age)
+    alert(`Tên của bạ là: ${name} Tuổi là: ${age}`)
+
+    //document.getElementById("my-id").style.color = 'red';
+    let js = document.getElementsByTagName("p");
+    for (let i = 0; i < js.length; i++) {
+        js[i].style.color = 'red';
+        js[i].style.background = 'yellow';
+    }
+
+</script>
+</body>
+</html>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/facility")
@@ -68,14 +69,29 @@ public class FacilityController {
     }
 
     @PostMapping("/add")
-    private String add(@Validated FacilityDto facilityDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    private String add(@Validated FacilityDto facilityDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
+        Facility facility = new Facility();
+        new FacilityDto().validate(facilityDto, bindingResult);
+        BeanUtils.copyProperties(facilityDto, facility);
         if (bindingResult.hasErrors()){
+            List<FacilityType> facilityTypeList = facilityTypeService.findAll();
+            model.addAttribute("facilityTypeList", facilityTypeList);
+            List<RentType> rentTypeList = rentTypeService.findAll();
+            model.addAttribute("rentTypeList", rentTypeList);
             return "facility/create";
         }
-        Facility facility = new Facility();
-        BeanUtils.copyProperties(facilityDto, facility);
-        facilityService.save(facility);
-        redirectAttributes.addFlashAttribute("mess", "Thêm mới thành công!");
+        try {
+            facilityService.check(facility);
+            facilityService.save(facility);
+            redirectAttributes.addFlashAttribute("mess", "Thêm mới thành công!");
+        }catch (Exception e){
+            bindingResult.rejectValue("name", "name", e.getMessage());
+            List<FacilityType> facilityTypeList = facilityTypeService.findAll();
+            model.addAttribute("facilityTypeList", facilityTypeList);
+            List<RentType> rentTypeList = rentTypeService.findAll();
+            model.addAttribute("rentTypeList", rentTypeList);
+            return "facility/create";
+        }
         return "redirect:/facility";
     }
 
