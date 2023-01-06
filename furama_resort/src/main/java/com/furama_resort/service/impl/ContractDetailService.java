@@ -19,8 +19,4 @@ public class ContractDetailService implements IContractDetailService {
         contractDetailRepository.save(contractDetail);
     }
 
-    @Override
-    public List<ContractDetail> search(Integer id) {
-        return contractDetailRepository.search(id);
-    }
 }

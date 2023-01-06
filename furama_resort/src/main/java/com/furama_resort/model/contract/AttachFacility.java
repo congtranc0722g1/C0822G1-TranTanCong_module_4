@@ -18,7 +18,6 @@ public class AttachFacility {
     @Column(columnDefinition = "varchar(45)")
     private String status;
     @OneToMany(mappedBy = "attachFacility")
-    @JsonBackReference
     private Set<ContractDetail> contractDetails;
     public AttachFacility() {
 

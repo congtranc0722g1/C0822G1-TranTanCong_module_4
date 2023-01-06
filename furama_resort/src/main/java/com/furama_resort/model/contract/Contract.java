@@ -25,6 +25,7 @@ public class Contract {
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false, referencedColumnName = "id")
+    @JsonBackReference
     private Employee employee;
 
     @ManyToOne
@@ -36,7 +37,6 @@ public class Contract {
     private Facility facility;
 
     @OneToMany(mappedBy = "contract")
-    @JsonBackReference
     private Set<ContractDetail> contractDetails;
 
     public Contract() {
