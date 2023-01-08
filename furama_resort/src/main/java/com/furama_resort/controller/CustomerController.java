@@ -5,6 +5,8 @@ import com.furama_resort.model.customer.Customer;
 import com.furama_resort.model.customer.CustomerType;
 import com.furama_resort.service.ICustomerService;
 import com.furama_resort.service.ICustomerTypeService;
+import com.furama_resort.util.IdCardException;
+import com.furama_resort.util.PhoneNumberException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -67,20 +69,20 @@ public class CustomerController {
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
         Map<String, String> checkList = customerService.check(customer);
-            if (checkList.get("checkIdCard") != null){
-                bindingResult.rejectValue("idCard", "idCard", checkList.get("checkIdCard"));
-            }
-            if (checkList.get("checkPhone") != null){
-                bindingResult.rejectValue("phone", "phone", checkList.get("checkPhone"));
-            }
-            if (checkList.get("checkEmail") != null){
-                bindingResult.rejectValue("email", "email", checkList.get("checkEmail"));
-            }
-            if (bindingResult.hasErrors()){
-                return "customer/create";
-            }
-                customerService.save(customer);
-                redirectAttributes.addFlashAttribute("mess", "Thêm mới thành công!");
+        if (checkList.get("checkIdCard") != null){
+            bindingResult.rejectValue("idCard", "idCard", checkList.get("checkIdCard"));
+        }
+        if (checkList.get("checkPhone") != null){
+            bindingResult.rejectValue("phone", "phone", checkList.get("checkPhone"));
+        }
+        if (checkList.get("checkEmail") != null){
+            bindingResult.rejectValue("email", "email", checkList.get("checkEmail"));
+        }
+        if (bindingResult.hasErrors()){
+            return "customer/create";
+        }
+        customerService.save(customer);
+        redirectAttributes.addFlashAttribute("mess", "Thêm mới thành công!");
         return "redirect:/customer";
     }
 

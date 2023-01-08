@@ -144,8 +144,6 @@ public class FacilityDto implements Validator {
         FacilityDto facilityDto = (FacilityDto) target;
         if (facilityDto.name.equals("")){
             errors.rejectValue("name", "name", "Không được để trống");
-        }else if (!facilityDto.name.matches("^[A-Z]$")){
-            errors.rejectValue("name", "name", "Tên không đúng định dạng");
         }
     }
 }
