@@ -64,6 +64,12 @@ public class CustomerController {
 
     @PostMapping("/add")
     private String add(@Validated CustomerDto customerDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
+        new CustomerDto().validate(customerDto, bindingResult);
+        if (bindingResult.hasErrors()){
+            List<CustomerType> customerTypeList = customerTypeService.findAll();
+            model.addAttribute("customerTypeList", customerTypeList);
+            return "customer/create";
+        }
         List<CustomerType> customerTypeList = customerTypeService.findAll();
         model.addAttribute("customerTypeList", customerTypeList);
         Customer customer = new Customer();

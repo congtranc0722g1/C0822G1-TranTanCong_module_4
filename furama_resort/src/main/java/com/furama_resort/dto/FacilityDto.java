@@ -6,8 +6,8 @@ import com.furama_resort.model.facility.FacilityType;
 import com.furama_resort.model.facility.RentType;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
@@ -17,10 +17,13 @@ public class FacilityDto implements Validator {
     private Integer area;
     private Double cost;
     private Integer maxPeople;
+    @NotBlank(message = "Không được để trống")
     private String standardRoom;
+    @NotBlank(message = "Không được để trống")
     private String descriptionOtherConvenience;
     private Double poolArea;
     private Integer numbersOfFloors;
+    @NotBlank(message = "Không được để trống")
     private String facilityFree;
     private RentType rentType;
     private FacilityType facilityType;
@@ -144,6 +147,14 @@ public class FacilityDto implements Validator {
         FacilityDto facilityDto = (FacilityDto) target;
         if (facilityDto.name.equals("")){
             errors.rejectValue("name", "name", "Không được để trống");
+        }
+
+        if (facilityDto.facilityType.getId() == 3 || facilityDto.facilityType.getId() == 2){
+            facilityDto.setNumbersOfFloors(null);
+        }else if (!(String.valueOf(facilityDto.numbersOfFloors).matches("^\\d+$"))){
+            errors.rejectValue("numbersOfFloors", "numbersOfFloors", " Số tầng phải là số nguyên dương");
+        }else if (facilityDto.numbersOfFloors <= 0){
+            errors.rejectValue("numbersOfFloors", "numbersOfFloors", "Số tầng phải lớn hơn 0");
         }
     }
 }

@@ -40,18 +40,21 @@
                             <div class="form-outline">
                                 <label class="form-label" th:for="area">Diện Tích</label>
                                 <input type="text" th:field="*{area}" class="form-control form-control-lg"/>
+                                <label th:errors="*{area}" class="text-danger" ></label>
                             </div>
 
 
                             <div class="form-outline datepicker w-100">
                                 <label th:for="cost" class="form-label">Chi Phí Thuê</label>
                                 <input type="text" th:field="*{cost}" class="form-control form-control-lg"/>
+                                <label th:errors="*{cost}" class="text-danger" ></label>
                             </div>
 
 
                             <div class="form-outline datepicker w-100">
                                 <label th:for="maxPeople" class="form-label">Số Người Tối Đa</label>
                                 <input type="text" th:field="*{maxPeople}" class="form-control form-control-lg"/>
+                                <label th:errors="*{maxPeople}" class="text-danger" ></label>
                             </div>
 
 
@@ -67,6 +70,7 @@
                             <div id="standardRoom" class="form-outline">
                                 <label th:for="standardRoom" class="form-label">Tiêu Chuẩn Phòng</label>
                                 <input type="text" th:field="*{standardRoom}" class="form-control form-control-lg"/>
+                                <label th:errors="*{standardRoom}" class="text-danger" ></label>
                             </div>
 
 
@@ -75,22 +79,26 @@
                                     Khác</label>
                                 <input type="text" th:field="*{descriptionOtherConvenience}"
                                        class="form-control form-control-lg"/>
+                                <label th:errors="*{descriptionOtherConvenience}" class="text-danger" ></label>
                             </div>
 
 
                             <div id="poolArea" class="form-outline">
                                 <label th:for="poolArea" class="form-label">Diện Tích Hồ Bơi</label>
                                 <input type="text" th:field="*{poolArea}" class="form-control form-control-lg"/>
+                                <label th:errors="*{poolArea}" class="text-danger" ></label>
                             </div>
 
                             <div id="numbersOfFloors" class="form-outline">
                                 <label th:for="numbersOfFloors" class="form-label">Số Tầng</label>
                                 <input type="text" th:field="*{numbersOfFloors}" class="form-control form-control-lg"/>
+                                <label th:errors="*{numbersOfFloors}" class="text-danger" ></label>
                             </div>
 
                             <div style="display: none" id="facilityFree" class="form-outline">
                                 <label th:for="facilityFree" class="form-label">Dịch Vụ Miễn Phí Đi Kèm</label>
                                 <input type="text" th:field="*{facilityFree}" class="form-control form-control-lg"/>
+                                <label th:errors="*{facilityFree}" class="text-danger" ></label>
                             </div>
 
 
