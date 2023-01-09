@@ -161,6 +161,10 @@ public class FacilityDto implements Validator {
 
         if (facilityDto.facilityType.getId() == 2 || facilityDto.facilityType.getId() == 3){
             facilityDto.setPoolArea(null);
+        } else if (!(String.valueOf(facilityDto.poolArea).matches("^\\d[.]\\d$"))){
+            errors.rejectValue("poolArea", "poolArea", "Không đúng định dạng");
+        }else if (facilityDto.poolArea <= 0.0){
+            errors.rejectValue("poolArea", "poolArea", "Không được bé hơn 0");
         }
 
         if (facilityDto.facilityType.getId() == 1 || facilityDto.facilityType.getId() == 2){
