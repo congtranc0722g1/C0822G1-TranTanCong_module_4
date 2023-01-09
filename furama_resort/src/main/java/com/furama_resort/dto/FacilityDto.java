@@ -147,14 +147,24 @@ public class FacilityDto implements Validator {
         FacilityDto facilityDto = (FacilityDto) target;
         if (facilityDto.name.equals("")){
             errors.rejectValue("name", "name", "Không được để trống");
+        }else if (!facilityDto.name.matches("([A-Z]+[a-z 0-9]*[ ]*)*")){
+            errors.rejectValue("name", "name", "Tên không đúng định dạng");
         }
 
-        if (facilityDto.facilityType.getId() == 3 || facilityDto.facilityType.getId() == 2){
+        if (facilityDto.facilityType.getId() == 3){
             facilityDto.setNumbersOfFloors(null);
         }else if (!(String.valueOf(facilityDto.numbersOfFloors).matches("^\\d+$"))){
             errors.rejectValue("numbersOfFloors", "numbersOfFloors", " Số tầng phải là số nguyên dương");
         }else if (facilityDto.numbersOfFloors <= 0){
             errors.rejectValue("numbersOfFloors", "numbersOfFloors", "Số tầng phải lớn hơn 0");
+        }
+
+        if (facilityDto.facilityType.getId() == 2 || facilityDto.facilityType.getId() == 3){
+            facilityDto.setPoolArea(null);
+        }
+
+        if (facilityDto.facilityType.getId() == 1 || facilityDto.facilityType.getId() == 2){
+            facilityDto.setFacilityFree(null);
         }
     }
 }
