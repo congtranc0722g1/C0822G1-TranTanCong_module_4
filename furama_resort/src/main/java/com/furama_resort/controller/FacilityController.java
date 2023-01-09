@@ -110,7 +110,7 @@ public class FacilityController {
     }
 
     @PostMapping("/edit")
-    private String edit(@Validated FacilityDto facilityDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    private String edit(@Validated FacilityDto facilityDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         Facility facility = new Facility();
         BeanUtils.copyProperties(facilityDto, facility);
         facilityService.save(facility);

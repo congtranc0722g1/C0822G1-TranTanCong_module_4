@@ -25,6 +25,7 @@
                   <div class="form-outline">
                     <label class="form-label" th:for="name">Nhập Tên</label>
                     <input type="text" th:field ="*{name}" class="form-control form-control-lg" />
+                    <label th:errors="*{name}" class="text-danger"></label>
                   </div>
 
                 </div>
@@ -33,6 +34,7 @@
                   <div class="form-outline">
                     <label class="form-label" th:for="dateOfBirth">Ngày Sinh</label>
                     <input type="date" th:field ="*{dateOfBirth}" class="form-control-lg"/>
+                    <label th:errors="*{dateOfBirth}" class="text-danger"></label>
                   </div>
 
                 </div>
@@ -44,6 +46,7 @@
                   <div class="form-outline datepicker w-100">
                     <label th:for="idCard" class="form-label">CMND</label>
                     <input type="text" th:field ="*{idCard}" class="form-control form-control-lg" />
+                    <label th:errors="*{idCard}" class="text-danger"></label>
                   </div>
 
                 </div>
@@ -70,6 +73,7 @@
                   <div class="form-outline">
                     <label th:for="phone" class="form-label">Số Điện Thoại</label>
                     <input type="text" th:field ="*{phone}" class="form-control form-control-lg" />
+                    <label th:errors="*{phone}" class="text-danger"></label>
                   </div>
 
                 </div>
@@ -78,6 +82,7 @@
                   <div class="form-outline">
                     <label th:for="email" class="form-label">Email</label>
                     <input type="text" th:field ="*{email}" class="form-control form-control-lg" />
+                    <label th:errors="*{email}" class="text-danger"></label>
                   </div>
 
                 </div>
@@ -89,6 +94,7 @@
                   <div class="form-outline">
                     <label th:for="address" class="form-label">Địa Chỉ</label>
                     <input type="text" th:field ="*{address}" class="form-control form-control-lg" />
+                    <label th:errors="*{address}" class="text-danger"></label>
                   </div>
 
                 </div>
