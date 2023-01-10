@@ -1,5 +1,7 @@
 package com.furama_resort.model;
 
+import com.furama_resort.model.employee.Role;
+import com.furama_resort.model.employee.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,7 @@ public class MyUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
         for (Role role : user.getRoles()) {

@@ -12,7 +12,6 @@ public class Role {
     private int id;
     private String name;
     @ManyToMany(mappedBy = "roles")
-    @JsonManagedReference
     private Set<User> users;
 
     public Role() {

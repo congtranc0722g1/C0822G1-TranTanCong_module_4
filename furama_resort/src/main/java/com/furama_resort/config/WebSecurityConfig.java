@@ -31,7 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .formLogin()
-                .defaultSuccessUrl("/student", true).permitAll()
+                .defaultSuccessUrl("/", true).permitAll()
+                .and().authorizeRequests().antMatchers("/").permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated();
