@@ -9,6 +9,7 @@ import org.springframework.validation.Validator;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 public class FacilityDto implements Validator {
@@ -162,13 +163,29 @@ public class FacilityDto implements Validator {
         if (facilityDto.facilityType.getId() == 2 || facilityDto.facilityType.getId() == 3){
             facilityDto.setPoolArea(null);
         } else if (!(String.valueOf(facilityDto.poolArea).matches("^\\d[.]\\d$"))){
-            errors.rejectValue("poolArea", "poolArea", "Không đúng định dạng");
+            errors.rejectValue("poolArea", "poolArea", "Diện tích hồ bơi không đúng định dạng, Phải là một số lớn hơn 0");
         }else if (facilityDto.poolArea <= 0.0){
-            errors.rejectValue("poolArea", "poolArea", "Không được bé hơn 0");
+            errors.rejectValue("poolArea", "poolArea", "Diện tích hồ bơi không được bé hơn 0");
         }
 
         if (facilityDto.facilityType.getId() == 1 || facilityDto.facilityType.getId() == 2){
             facilityDto.setFacilityFree(null);
+        }
+        if (!(String.valueOf(facilityDto.area).matches("^\\d+$"))){
+            errors.rejectValue("area", "area", "Diện tích phải là số nguyên dương");
+        }else if (facilityDto.area <= 0){
+            errors.rejectValue("area", "area", "Diện tích không được bé hơn 0");
+        }
+        if (!(String.valueOf(facilityDto.maxPeople).matches("^\\d+$"))){
+            errors.rejectValue("maxPeople", "maxPeople", "Số người tối đa phải là số nguyên dương");
+        }else if (facilityDto.area <= 0){
+            errors.rejectValue("maxPeople", "maxPeople", "Số người tối đa không được bé hơn 0");
+        }
+
+        if (!(String.valueOf(facilityDto.cost).matches("^\\d[.]\\d$"))){
+            errors.rejectValue("cost", "cost", "Chi phí thuê không đúng định dạng, Phải là một số lớn hơn 0");
+        }else if (facilityDto.cost <= 0.0){
+            errors.rejectValue("cost", "cost", "Chi phí thuê không được bé hơn 0");
         }
     }
 }
